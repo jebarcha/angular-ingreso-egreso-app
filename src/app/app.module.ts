@@ -5,6 +5,11 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 
+// NgRx
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './app.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 // Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -43,7 +48,12 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 		FormsModule,
 		AngularFireModule.initializeApp(environment.firebase), // 'my-app-name'), // imports firebase/app needed for everything
 		AngularFirestoreModule, // imports firebase/firestore, only needed for database features
-		AngularFireAuthModule // imports firebase/auth, only needed for auth features
+		AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+		StoreModule.forRoot(appReducers),
+		StoreDevtoolsModule.instrument({
+			maxAge: 25,
+			logOnly: environment.production
+		})
 	],
 	providers: [],
 	bootstrap: [ AppComponent ]
